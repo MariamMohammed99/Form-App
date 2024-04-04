@@ -1,9 +1,0 @@
-.error {
-  font-size: 12;
-  color: red;
-  text-align: left;
-}
-
-.formInput > div > label {
-  align-self: start;
-}

@@ -2,30 +2,25 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { getFormData } from '../../selectors';
 import { FormLabel, Headline, Typography } from '@vfde-react/pattern';
-import './Overview.css';
+import FormDetails from './styled';
 
 const Overview: React.FC = () => {
   const formData = useSelector(getFormData);
   return (
     <>
-      <Headline
-        children="Overview Page"
-        level={2}
-        mobileAlign="left"
-        align="left"
-      />
-      <div className="formDetails">
+      <Headline children="Overview Page" level={2} />
+      <FormDetails>
         <FormLabel children="First Name: " />
         <Typography children={formData.firstName} />
-      </div>
-      <div className="formDetails">
+      </FormDetails>
+      <FormDetails>
         <FormLabel children="Age: " />
         <Typography children={formData.age} />
-      </div>{' '}
-      <div className="formDetails">
+      </FormDetails>
+      <FormDetails>
         <FormLabel children="User Type: " />
         <Typography children={formData.userType} />
-      </div>
+      </FormDetails>
     </>
   );
 };

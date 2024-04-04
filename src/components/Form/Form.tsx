@@ -11,7 +11,7 @@ import RootState from '../../types/rootState';
 import { setFormData, setUserType } from '../../actions';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import './Form.css';
+import FormInput from './styled';
 
 const Form: React.FC = () => {
   const navigate = useNavigate();
@@ -25,31 +25,27 @@ const Form: React.FC = () => {
   };
   return (
     <>
-      <Headline
-        children="Form Page"
-        level={2}
-        mobileAlign="left"
-        align="left"
-      />
+      <Headline children="Form Page" level={2} />
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
-        <div className="formInput">
+        <FormInput>
           <FormTextInput
             label="First Name"
+            message={errors.firstName?.message}
+            appearance={errors.firstName?.message ? 'error' : 'default'}
             placeholder="Enter Your First Name Please"
-            disabled={false}
             formNoValidate
             uid="first-name"
             {...register('firstName', { required: 'First Name is required' })}
           />
-        </div>
-        <p className="error">{errors.firstName?.message}</p>
+        </FormInput>
 
-        <div className="formInput">
+        <FormInput>
           <FormTextInput
+            message={errors.age?.message}
+            appearance={errors.age?.message ? 'error' : 'default'}
             label="Age"
             type="number"
             placeholder="Enter Your Age Please"
-            disabled={false}
             formNoValidate
             uid="age"
             onKeyDown={(e) => {
@@ -63,19 +59,17 @@ const Form: React.FC = () => {
               }
             }}
             {...register('age', {
-              required: { value: true, message: 'Age is required' },
+              required: 'Age is required',
               validate: (fieldValue) =>
                 (fieldValue! > 0 && fieldValue! <= 120) || 'Invalid age',
               valueAsNumber: true,
             })}
           />
-        </div>
-        <p className="error">{errors.age?.message}</p>
+        </FormInput>
 
-        <div className="formInput">
+        <FormInput>
           <FormSelect
             label="User Type"
-            disabled={false}
             uid="user-type"
             options={[
               { value: 'user', label: 'User' },
@@ -86,14 +80,8 @@ const Form: React.FC = () => {
               dispatch(setUserType({ userType: selectedValue.target.value }))
             }
           />
-        </div>
-        <p className="error">{errors.userType?.message}</p>
-
-        <Button
-          widthBehavior={undefined}
-          children="Submit"
-          id="submit-button"
-        />
+        </FormInput>
+        <Button children="Submit" id="submit-button" />
       </form>
       <DevTool control={control} />
     </>
